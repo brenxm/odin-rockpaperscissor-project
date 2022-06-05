@@ -5,6 +5,13 @@
 
 
 //computer randomly chooses his weapon
+
+
+//global variables
+
+let playerScore = 0;
+let computerScore = 0;
+
 function computerPlay() {
 
     let rng = Math.random();
@@ -21,9 +28,80 @@ function computerPlay() {
     return 'scissor'
 }
 
-const playerSelection = () => {
-    const input = prompt('Select Rock Paper or Scissor');
-    //will process input here so it will accept any case of string
-    //if input is invalid, will return an alert and order them to prompt again.
+const playerSelection = (str = prompt('Choose your weapon, Rock Paper or Scissor')) => {
+    switch(str.toLowerCase()){
+        case 'rock' :
+        return 'rock';
+
+        case 'paper' :
+        return  'paper';
+
+        case 'scissor' :
+        return 'scissor';
+
+        default:
+        const input = prompt('I said choose your weapon wisely, my dood')
+        return playerSelection(input);
+    }
 };
 
+
+//singleplay will accept the playerselection weapon and computer weapon
+    //will return a winner
+
+function singlePlay(playerSelection, computerSelection){
+
+    //annoucner
+    console.log(`AI contender chooses ${computerSelection}`);
+    console.log(`and our very own player chooses ${playerSelection}`);
+
+    let battleField = `${playerSelection} vs ${computerSelection}`;
+    //rock - paper
+        //2 wins
+    //scissor - paper
+        //1 wins
+    //rock - scissor
+        //1 wins
+
+    //choose the weapon that won
+        //take the variable name of that weapon and return as winner
+    switch(battleField){
+        case 'rock vs paper' || 'paper vs rock':
+        playerSelection === 'paper' ? playerScore++ : computerScore++;
+        playerSelection === 'paper' ? alert('Our player won! (CROWD loses their shit)') : alert('computer won! (CROWDS boo)');
+
+        break;
+
+        case 'scissor vs paper' || 'paper vs scissor' :
+        playerSelection === 'scissor' ? playerScore++ : computerScore++;
+        playerSelection === 'scissor' ? alert('Our player won! (CROWD loses their shit)') : alert('computer won! (CROWDS boo)');
+        break;
+
+        case 'rock vs scissor' || 'scissor vs rock':
+        playerSelection === 'rock' ? playerScore++ : computerScore++;
+        playerSelection === 'rock' ? alert('Our player won! (CROWD loses their shit)') : alert('computer won! (CROWDS boo)');
+        break;
+
+        default:
+        alert('Izza tie! lets play again!!')
+    }
+    game(playerScore, computerScore);
+}
+
+
+function game(pScore, cScore){
+    if(pScore = 3){
+        console.log(pScore);
+        return alert('our player has won the GAME!! (CROWDS bang their heads and loses their shit!!)');
+    }
+
+    else if(cScore = 3){
+        return alert('AI won (CROWDS boooo loudly)');
+    }
+
+    singlePlay(playerSelection(), computerPlay());
+}
+
+//make game decider flash card
+
+singlePlay(playerSelection(), computerPlay());
