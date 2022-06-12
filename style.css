@@ -1,9 +1,14 @@
+* {
+    color: white;
+    font-family: monospace;
+}
 body{
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: rgb(216, 175, 63);
 }
 
 .container {
@@ -13,10 +18,11 @@ body{
 }
 
 i {
-    padding: 5px;
-    font-size: 100px;
+    padding: 25px;
+    font-size: 80px;
     border-radius: 20px;
-    box-shadow: 2px 2px 5px rgb(80, 80, 80);
+    box-shadow: 5px 5px 0 rgb(31, 37, 64);
+    color: rgb(31, 37, 64);
 }
 
 #ai-square {
@@ -31,6 +37,7 @@ i {
     margin-top: 50px;
     box-shadow: 2px 2px 5px rgb(80, 80, 80);
     border-radius: 20px;
+    background-color: rgb(31, 37, 64);
 }
 
 .announcer-won {
@@ -43,20 +50,23 @@ i {
     border-radius: 20px;
     animation-name: wonned;
     animation-duration: 0.5s;
-    animation-timing-function: linear;
+    animation-timing-function: ease;
     animation-iteration-count: infinite;
 }
 
 @keyframes wonned {
     0% {
         background-color: white;
+        color: black;
     }
 
     50% {
+        color: black;
         background-color: yellow;
     }
-    
-    100% {
+        color: black;
+        
+        100% {
         background-color: white;
     }
 }

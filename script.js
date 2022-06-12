@@ -4,9 +4,9 @@
 let playerScore = 0;
 let computerScore = 0;
 
-const ROCK = 'fa-regular fa-hand-back-fist';
-const PAPER = 'fa-regular fa-hand';
-const SCISSOR = 'fa-regular fa-hand-scissors';
+const ROCK = 'fa-solid fa-hand-back-fist';
+const PAPER = 'fa-solid fa-hand';
+const SCISSOR = 'fa-solid fa-hand-scissors';
 let playing = false;
 
 const announcer = document.querySelector('.announcer');
