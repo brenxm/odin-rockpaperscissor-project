@@ -4,9 +4,14 @@
 let playerScore = 0;
 let computerScore = 0;
 
-const ROCK = 'rock';
-const PAPER = 'paper';
-const SCISSOR = 'scissor';
+const ROCK = 'fa-regular fa-hand-back-fist';
+const PAPER = 'fa-regular fa-hand';
+const SCISSOR = 'fa-regular fa-hand-scissors';
+let playing = false;
+
+const announcer = document.querySelector('.announcer');
+const scoreBoard = document.querySelector('.score-board');
+const aiSquare = document.querySelector('#ai-square');
 
 function computerPlay() {
 
@@ -14,92 +19,96 @@ function computerPlay() {
 
     console.log(rng);
     if (rng <= 0.33) {
-        return 'rock';
+        aiSquare.classList.value = ROCK;
+        return ROCK;
     }
 
     else if (rng > 0.33 && rng < 0.66) {
-        return 'paper';
+        aiSquare.classList.value = PAPER;
+        return PAPER;
     }
 
-    return 'scissor'
+    aiSquare.classList.value = SCISSOR;
+    return SCISSOR
+}
+const cards = document.querySelectorAll('#card');
+
+cards.forEach(card => card.addEventListener('click', game))
+
+function test(){
+    console.log(this.classList.value);
 }
 
-const playerSelection = (str = prompt('Choose your weapon, Rock Paper or Scissor')) => {
-    switch(str.toLowerCase()){
-        case ROCK :
-        return ROCK;
 
-        case PAPER :
-        return  PAPER;
+function singlePlay(playerSelection, computerSelection,clicked){
 
-        case SCISSOR :
-        return SCISSOR ;
-
-        default:
-        const input = prompt('I said choose your weapon wisely, my dood')
-        return playerSelection(input);
-    }
-};
-
-
-//singleplay will accept the playerselection weapon and computer weapon
-    //will return a winner
-
-function singlePlay(playerSelection, computerSelection){
 
     let battleField = `${playerSelection} vs ${computerSelection}`;
 
     switch(battleField){
         case `${ROCK} vs ${PAPER}` :
         case `${PAPER} vs ${ROCK}` :
-        playerSelection === ROCK ? playResult('player'): playResult('computer');
+        playerSelection === ROCK ? playResult('computer',clicked): playResult('player',clicked);
         break;
 
         case `${SCISSOR} vs ${PAPER}`  :
         case `${PAPER} vs ${SCISSOR}` :
-        playerSelection === SCISSOR ? playResult('player'): playResult('computer');
+        playerSelection === SCISSOR ? playResult('player',clicked): playResult('computer',clicked);
         break;
 
         case `${ROCK} vs ${SCISSOR}` :
         case `${SCISSOR} vs ${ROCK}` :
-        playerSelection === ROCK ? playResult('player'): playResult('computer');
+        playerSelection === ROCK ? playResult('player',clicked): playResult('computer',clicked);
         break;
 
         default:
-        alert('Izza tie! lets play again!!')
+        announcer.textContent = 'Izza tie! lets play again!!';cards.forEach(x => x.setAttribute('style','background-color: none;'));
+    aiSquare.setAttribute('style','background-color: none;')
         break;
     }
-    game(playerScore, computerScore);
 }
 
-function playResult(winner){
+function playResult(winner,clicked){
+    cards.forEach(x => x.setAttribute('style','background-color: none;'));
+    aiSquare.setAttribute('style','background-color: none;')
+
     if(winner == 'player'){
+        clicked.setAttribute('style','background-color: lightgreen;');
+        aiSquare.setAttribute('style','background-color: red;');
         playerScore++;
     }
 
-    else if(winner == 'computer'){
+    else if (winner == 'computer') {
+        clicked.setAttribute('style', 'background-color: red;');
+        aiSquare.setAttribute('style', 'background-color: lightgreen;');
         computerScore++
     }
 
-    alert(`${winner} won this match. \b The current score is ${playerScore} - ${computerScore}`);
+    scoreBoard.textContent = `Player score:${playerScore} Computer score:${computerScore}`
+
+    if(playerScore == 5 || computerScore == 5){
+        announcer.classList.value = 'announcer-won';
+        announcer.textContent = `${winner} won the Series!`
+        playing = false;
+        return;
+    }
+
+    announcer.textContent = `${winner} won this match!`;
 }
 
 
-function game(pScore, cScore){
-    if(pScore == 3){
-        console.log(pScore);
-        return alert('our player has won the GAME!! (CROWDS bang their heads and loses their shit!!)');
+function game(e){
+    if(!playing){
+        announcer.classList.value = 'announcer';
+        playing = true;
+        playerScore = 0;
+        computerScore = 0;
+        scoreBoard.textContent = `Player score:${playerScore} Computer score:${computerScore}`
+        singlePlay(this.classList.value,computerPlay(),e.target)
+        return;
     }
 
-    else if(cScore == 3){
-        return alert('AI won (CROWDS boooo loudly)');
-    }
-
-    else{
-        singlePlay(playerSelection(), computerPlay());
-    }
-
+    singlePlay(this.classList.value,computerPlay(),e.target);
+    
 }
 
-//this will initiate the game
-game();

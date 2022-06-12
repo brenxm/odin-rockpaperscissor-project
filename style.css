@@ -1,0 +1,67 @@
+body{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+i {
+    padding: 5px;
+    font-size: 100px;
+    border-radius: 20px;
+    box-shadow: 2px 2px 5px rgb(80, 80, 80);
+}
+
+#ai-square {
+    margin-bottom: 200px;
+}
+
+.announcer, .score-board {
+    font-size: 40px;
+    width: 390px;
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 50px;
+    box-shadow: 2px 2px 5px rgb(80, 80, 80);
+    border-radius: 20px;
+}
+
+.announcer-won {
+    font-size: 40px;
+    width: 390px;
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 50px;
+    box-shadow: 2px 2px 5px rgb(80, 80, 80);
+    border-radius: 20px;
+    animation-name: wonned;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes wonned {
+    0% {
+        background-color: white;
+    }
+
+    50% {
+        background-color: yellow;
+    }
+    
+    100% {
+        background-color: white;
+    }
+}
+
+
+.empty {
+    font-color: white;
+}
